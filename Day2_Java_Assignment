@@ -1,0 +1,278 @@
+1.Primitive Data Types
+
+package Assignments;
+import java.util.*;
+public class assign1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		System.out.print("Enter Age: ");
+        int age = sc.nextInt();  
+
+        System.out.print("Enter Height: ");
+        float height = sc.nextFloat();  
+
+        System.out.print("Enter Weight: ");
+        double weight = sc.nextDouble();  
+        
+        System.out.println("Age: " + age);
+        System.out.println("Height: " + height);
+        System.out.println("Weight: " + weight);
+
+        sc.close();
+
+	}
+
+}
+2.Operators
+package Assignments;
+import java.util.*;
+public class assign2 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		 Scanner sc = new Scanner(System.in);
+
+	        
+	        System.out.print("Enter Number1: ");
+	        int num1 = sc.nextInt();
+
+	        System.out.print("Enter Number2: ");
+	        int num2 = sc.nextInt();
+
+	        
+	        int sum = num1 + num2;
+
+	        
+	        int greater = (num1 > num2) ? num1 : num2;
+
+	        
+	        boolean bothPositive = (num1 > 0) && (num2 > 0);
+
+	        
+	        System.out.println("Addition: " + sum);
+	        System.out.println("Greater number: " + greater);
+	        System.out.println("Are both positive? " + bothPositive);
+
+	        sc.close();
+	   	}
+
+}
+3. String Concatenation
+package Assignments;
+import java.util.*;
+public class assign3 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+
+        
+        System.out.print("Enter First Name: ");
+        String firstName = sc.nextLine();
+
+        System.out.print("Enter Last Name: ");
+        String lastName = sc.nextLine();
+
+       
+        String message = "Hello, " + firstName + " " + lastName + "! Welcome to the system.";
+
+        
+        System.out.println("\n" + message);
+
+        sc.close();
+
+	}
+
+}
+4. StringBuilder
+package Assignments;
+
+public class assignment4 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		StringBuilder sb=new StringBuilder("JAVA programming");
+		System.out.println(sb.reverse());
+
+	}
+
+}
+5.String API
+package Assignments;
+import java.util.*;
+public class assign5 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+
+       
+        System.out.print("Enter a string: ");
+        String input = sc.nextLine();
+
+        System.out.print("Enter the character to count: ");
+        char t = sc.next().charAt(0);
+
+        
+        int count = 0;
+        for (int i = 0; i < input.length(); i++) {
+            if (input.charAt(i) == t) {
+                count++;
+            }
+        }
+
+        // Output
+        System.out.println("Character '" + t + "' appears " + count + " times.");
+
+
+	}
+
+}
+7. Flow Control
+package Assignments;
+import java.util.*;
+public class assign6 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner scanner = new Scanner(System.in);
+
+        
+        System.out.print("Enter a number: ");
+        int number = scanner.nextInt();
+
+        
+        if (number > 0) {
+            System.out.println("The number is positive.");
+        } else if (number < 0) {
+            System.out.println("The number is negative.");A
+        } else {
+            System.out.println("The number is zero.");
+        }
+
+        scanner.close();
+ }
+
+}
+8.Loops and Branching
+package Assignments;
+import java.util.*;
+public class assign8 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		int n=sc.nextInt();
+		for(int i=0;i<=n;i++) {
+			
+			System.out.println(i*2+" ");
+			
+		}
+
+	}
+
+}
+10.Switch
+package Assignments;
+import java.util.*;
+public class assignment7 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner scanner = new Scanner(System.in);
+
+        // Taking inputs
+        System.out.print("Enter Number1: ");
+        double num1 = scanner.nextDouble();
+
+        System.out.print("Enter Number2: ");
+        double num2 = scanner.nextDouble();
+
+        System.out.print("Enter Operation (+, -, *, /): ");
+        char operator = scanner.next().charAt(0);
+
+        double result;
+
+        // Switch for operation
+        switch (operator) {
+            case '+':
+                result = num1 + num2;
+                System.out.println("Result: " + result);
+                break;
+            case '-':
+                result = num1 - num2;
+                System.out.println("Result: " + result);
+                break;
+            case '*':
+                result = num1 * num2;
+                System.out.println("Result: " + result);
+                break;
+            case '/':
+                if (num2 != 0) {
+                    result = num1 / num2;
+                    System.out.println("Result: " + result);
+                } else {
+                    System.out.println("Error: Division by zero not allowed.");
+                }
+                break;
+            default:
+                System.out.println("Invalid operation.");
+        }
+
+        scanner.close();
+
+	}
+
+}
+
+9.OOPs Concepts
+package Assignments;
+
+
+
+	import java.util.Scanner;
+
+	// Student class with fields and a method to display data
+	class Student {
+	    String name;
+	    int marks;
+
+	    // Constructor
+	    Student(String name, int marks) {
+	        this.name = name;
+	        this.marks = marks;
+	    }
+
+	    // Method to display student details
+	    void displayDetails() {
+	        System.out.println("Student Name: " + name);
+	        System.out.println("Marks: " + marks);
+	    }
+	
+
+	public class assign9 {
+	    public static void main(String[] args) {
+	        Scanner scanner = new Scanner(System.in);
+
+	        // Taking input
+	        System.out.print("Enter Student Name: ");
+	        String name = scanner.nextLine();
+
+	        System.out.print("Enter Marks: ");
+	        int marks = scanner.nextInt();
+
+	        // Creating Student object
+	        Student s1 = new Student(name, marks);
+
+	        // Displaying details
+	        
+	        s1.displayDetails();
+
+	        scanner.close();
+	    }
+	}
+	
+}
+
+
