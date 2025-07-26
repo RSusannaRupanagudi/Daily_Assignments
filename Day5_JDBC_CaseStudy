@@ -1,0 +1,314 @@
+SQL Queries
+USE coursedb;
+
+CREATE TABLE coursedb.courses (
+  course_id INT PRIMARY KEY,
+  course_name VARCHAR(100),
+  faculty VARCHAR(100),
+  credits INT
+);
+
+SELECT * FROM courses;
+Dbutilization.java
+package Coursereg;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class Dbutilization {
+    private static final String URL = "jdbc:mysql://localhost:3306/coursedb";
+    private static final String USER = "root";
+    private static final String PASSWORD = "Likhita@2003";
+
+    public static Connection getConnection() throws SQLException {
+        Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+        System.out.println("Connected to the database");
+        return conn;
+    }
+}
+ Insertcourse.java
+
+package Coursereg;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.Scanner;
+
+public class Insertcourse {
+    public static void main(String[] args) {
+        try (Scanner sc = new Scanner(System.in);
+             Connection conn = Dbutilization.getConnection()) {
+
+            System.out.print("Enter Course ID: ");
+            int id = sc.nextInt();
+            sc.nextLine();
+
+            System.out.print("Enter Course Name: ");
+            String name = sc.nextLine();
+
+            System.out.print("Enter Faculty: ");
+            String faculty = sc.nextLine();
+
+            System.out.print("Enter Credits: ");
+            int credits = sc.nextInt();
+
+            String query = "INSERT INTO courses VALUES (?, ?, ?, ?)";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+            ps.setString(2, name);
+            ps.setString(3, faculty);
+            ps.setInt(4, credits);
+
+            int rows = ps.executeUpdate();
+            System.out.println(rows > 0 ? "Course inserted" : "Insertion failed.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+ Selectcourse.java
+
+package Coursereg;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class Selectcourse {
+    public static void main(String[] args) {
+        try (Connection conn = Dbutilization.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT * FROM courses")) {
+
+            System.out.println("Course List:");
+            while (rs.next()) {
+                System.out.println("ID: " + rs.getInt("course_id") +
+                                   ", Name: " + rs.getString("course_name") +
+                                   ", Faculty: " + rs.getString("faculty") +
+                                   ", Credits: " + rs.getInt("credits"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+Updatecourse.java
+
+package Coursereg;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.Scanner;
+
+public class Updatecourse {
+    public static void main(String[] args) {
+        try (Scanner sc = new Scanner(System.in);
+             Connection conn = Dbutilization.getConnection()) {
+
+            System.out.print("Enter Course ID to update: ");
+            int id = sc.nextInt();
+            sc.nextLine();
+
+            System.out.print("Enter new Faculty: ");
+            String faculty = sc.nextLine();
+
+            System.out.print("Enter new Credits: ");
+            int credits = sc.nextInt();
+
+            String query = "UPDATE courses SET faculty=?, credits=? WHERE course_id=?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, faculty);
+            ps.setInt(2, credits);
+            ps.setInt(3, id);
+
+            int rows = ps.executeUpdate();
+            System.out.println(rows > 0 ? "Course updated successfully." : "No course found with given ID.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+ Deletecourse.java
+
+package Coursereg;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.Scanner;
+
+public class Deletecourse {
+    public static void main(String[] args) {
+        try (Scanner sc = new Scanner(System.in);
+             Connection conn = Dbutilization.getConnection()) {
+
+            System.out.print("Enter Course ID to delete: ");
+            int id = sc.nextInt();
+
+            String query = "DELETE FROM courses WHERE course_id=?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+
+            int rows = ps.executeUpdate();
+            System.out.println(rows > 0 ? "Course deleted successfully." : "No course found with given ID.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+Task 2: Inventory Management System
+SQL Queries (inventorydb):
+
+USE inventorydb;
+
+CREATE TABLE inventorydb.products (
+  product_id INT PRIMARY KEY,
+  product_name VARCHAR(100),
+  quantity INT,
+  price DECIMAL(10,2)
+);
+
+SELECT * FROM products;
+
+ Dbutilization.java
+
+package Inventorysys;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class Dbutilization {
+    private static final String URL = "jdbc:mysql://localhost:3306/inventorydb";
+    private static final String USER = "root";
+    private static final String PASSWORD = "Likhita@2003";
+
+    public static Connection getConnection() throws SQLException {
+        Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+        System.out.println("Connected to the database");
+        return conn;
+    }
+}
+ Insertinventory.java
+
+package Inventorysys;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.Scanner;
+
+public class Insertinventory {
+    public static void main(String[] args) {
+        try (Scanner sc = new Scanner(System.in);
+             Connection conn = Dbutilization.getConnection()) {
+
+            System.out.print("Enter Product ID: ");
+            int id = sc.nextInt();
+            sc.nextLine();
+
+            System.out.print("Enter Product Name: ");
+            String name = sc.nextLine();
+
+            System.out.print("Enter Quantity: ");
+            int qty = sc.nextInt();
+
+            System.out.print("Enter Price: ");
+            double price = sc.nextDouble();
+
+            String query = "INSERT INTO products VALUES (?, ?, ?, ?)";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+            ps.setString(2, name);
+            ps.setInt(3, qty);
+            ps.setDouble(4, price);
+
+            int rows = ps.executeUpdate();
+            System.out.println(rows > 0 ? "Product added" : "Insertion failed.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+ Selectinventory.java
+
+package Inventorysys;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class Selectinventory {
+    public static void main(String[] args) {
+        try (Connection conn = Dbutilization.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT * FROM products")) {
+
+            System.out.println("---- Product Inventory ----");
+            while (rs.next()) {
+                System.out.println("ID: " + rs.getInt("product_id") +
+                                   ", Name: " + rs.getString("product_name") +
+                                   ", Quantity: " + rs.getInt("quantity") +
+                                   ", Price: " + rs.getDouble("price"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+ Updateinventory.java
+
+package Inventorysys;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.Scanner;
+
+public class Updateinventory {
+    public static void main(String[] args) {
+        try (Scanner sc = new Scanner(System.in);
+             Connection conn = Dbutilization.getConnection()) {
+
+            System.out.print("Enter Product ID to update quantity: ");
+            int id = sc.nextInt();
+
+            System.out.print("Enter New Quantity: ");
+            int qty = sc.nextInt();
+
+            String query = "UPDATE products SET quantity=? WHERE product_id=?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, qty);
+            ps.setInt(2, id);
+
+            int rows = ps.executeUpdate();
+            System.out.println(rows > 0 ? "Quantity updated!" : "Product not found.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+ Deleteinventory.java
+package Inventorysys;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.Scanner;
+
+public class Deleteinventory {
+    public static void main(String[] args) {
+        try (Scanner sc = new Scanner(System.in);
+             Connection conn = Dbutilization.getConnection()) {
+
+            System.out.print("Enter Product ID to delete: ");
+            int id = sc.nextInt();
+
+            String query = "DELETE FROM products WHERE product_id=?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+
+            int rows = ps.executeUpdate();
+            System.out.println(rows > 0 ? "Product deleted" : "Product not found");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
